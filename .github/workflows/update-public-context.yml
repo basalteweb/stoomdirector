@@ -1,0 +1,58 @@
+name: Analysis Power · Local Context Sentinel
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Four checks per day. GitHub uses UTC; exact execution can be delayed.
+    - cron: '17 5,9,13,17 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: analysis-power-local-context
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Optional GTFS-RT decoder
+        run: python -m pip install --disable-pip-version-check --quiet gtfs-realtime-bindings || true
+
+      - name: Connector unit tests
+        run: python tests/test_public_context.py
+
+      - name: JavaScript syntax guard and causal tests
+        run: |
+          for f in js/*.js sw.js; do node --check "$f"; done
+          node tests/test_causal_context.js
+          node tests/test_power_causality.js
+          node tests/test_merchant_rules.js
+
+      - name: Refresh public context
+        run: python scripts/update_public_context.py
+
+      - name: Validate generated payload
+        run: python scripts/validate_public_context.py
+
+      - name: Commit only validated public data
+        run: |
+          git config user.name "analysis-power-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/public-context.json data/public-context-history.json
+          if git diff --cached --quiet; then
+            echo "No public-context change to commit."
+          else
+            git commit -m "chore: refresh Analysis Power local context"
+            git push
+          fi
