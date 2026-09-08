@@ -1,0 +1,7 @@
+{
+  "name": "STOOM Clermont-Ferrand",
+  "address": "109 avenue Edouard Michelin, 63100 Clermont-Ferrand",
+  "immediate_radius_m": 100,
+  "commercial_radius_m": 500,
+  "extended_radius_m": 2000
+}

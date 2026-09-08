@@ -1,0 +1,114 @@
+STOOM DIRECTOR 6.0.0 — RAPPORT DE VERIFICATION
+Date : 2026-09-06
+Base originale : Analysis-Power-v5.1.0-MERCHANT.zip
+SHA256 original : ce5e80acde52873c456319a9177708c57c3d2028199e35379edff82b9611e67d
+
+Portee : 57 controles Director (dont emission HTML des 20 vues sans navigateur), 8 controles de persistance avec simulateur de transactions IndexedDB, regressions historiques et verifications statiques.
+Limites : donnees synthetiques ; pas de validation sur exports reels, pas de verification visuelle ou de parcours dans un navigateur, pas de verification en direct des sources publiques.
+
+COMMAND: node tests/test_director.js
+PASS January + February retain four unique tickets and exact net CA
+PASS Analysis does not mutate persisted imported sales
+PASS Repeated month imports never double sales or retain duplicate datasets
+PASS Overlapping multi-month import stores only new tickets
+PASS Conflicting ticket amounts reject append and preserve existing ledger
+PASS Changing the vendor on an existing ticket is a conflict, not a silent duplicate
+PASS Catalogue items without sales are retained in product analysis
+PASS Normalized product codes share one catalogue stock and one product
+PASS Future cohort months are unknown, never zero retention
+PASS A return-only ticket does not count as a new customer visit
+PASS Net CA includes returns while purchase basket uses positive tickets
+PASS Missing HT and margin stay unknown in director metrics
+PASS Reorder uses 7 observed days rather than an invented 28-day history
+PASS Negative stock never generates an automatic order quantity
+PASS Unsold stocked catalogue item is visible with unknown coverage
+PASS Previous-period comparison uses the same weekdays
+PASS Annual comparator uses 52 weeks, including leap-year/calendar shifts
+PASS Incomplete month blocks daily goal extrapolation in the view model
+PASS Old client export cannot roll back newer client details
+PASS Historic clients absent from a newer export remain linkable
+PASS Malformed required numbers are blocked rather than converted to zero
+PASS Blank stock is not a zero-stock fact
+PASS CSV column shifts block the import
+PASS Mixed vendors on one ticket block ambiguous attribution
+PASS French impossible dates and impossible hours are rejected
+PASS French numbers, negative values and zero remain precise
+PASS CSV exports neutralize spreadsheet formula injection while retaining numeric negatives
+PASS JSON backup restores Dates and reproduces the exact ledger
+PASS Invalid backup cannot be restored
+PASS Vendor totals, hours and peer-weighted basket are computed from the same ledger
+PASS Missing hours are not presented as midnight performance
+PASS Render today completes without a runtime error
+PASS Render operations completes without a runtime error
+PASS Render reorder completes without a runtime error
+PASS Render settings completes without a runtime error
+PASS Render salesforce completes without a runtime error
+PASS Render dashboard completes without a runtime error
+PASS Render clients completes without a runtime error
+PASS Render products completes without a runtime error
+PASS Render rayons completes without a runtime error
+PASS Render stock completes without a runtime error
+PASS Render fidelity completes without a runtime error
+PASS Render intelligence completes without a runtime error
+PASS Render alerts completes without a runtime error
+PASS Render context completes without a runtime error
+PASS Render geo completes without a runtime error
+PASS Render calendar completes without a runtime error
+PASS Render associations completes without a runtime error
+PASS Render compare completes without a runtime error
+PASS Render quality completes without a runtime error
+PASS Render autopilot completes without a runtime error
+PASS Selecting new sales stages them without changing the validated model
+PASS A storage failure leaves the validated model and imports unchanged
+PASS An older stock observation is staged as history without replacing current stock
+PASS Unavailable margin remains unknown in legacy product profiles
+PASS CSV tokenizer preserves quoted separators
+PASS CSV tokenizer reports unclosed quotes
+
+57 director checks passed.
+
+STATUS: PASS
+
+COMMAND: node tests/test_storage.js
+PASS Fresh database opens and creates its stores
+PASS Director write resolves only after committed state is readable
+PASS Write request success followed by transaction abort rejects and preserves old state
+PASS Imports and director journal commit together
+PASS Failed workspace commit rolls back both sales and director state
+PASS Stale tab cannot overwrite a newer sales ledger
+PASS Restore applies sales and stock history atomically
+PASS Clear operation waits for deletion of every store
+
+8 storage checks passed.
+
+STATUS: PASS
+
+COMMAND: node tests/test_causal_context.js
+test_causal_context: OK 100 strong
+
+STATUS: PASS
+
+COMMAND: node tests/test_power_causality.js
+test_power_causality: OK 100 89
+
+STATUS: PASS
+
+COMMAND: node tests/test_merchant_rules.js
+test_merchant_rules: OK
+
+STATUS: PASS
+
+COMMAND: python3 tests/test_public_context.py
+test_public_context: OK
+
+STATUS: PASS
+
+COMMAND: python3 scripts/validate_public_context.py
+OK schema=2 status=seeded works=12 agenda=0 cvelo=0 bike=0 t2c_ok=False parking=0 sources=2
+
+STATUS: PASS
+
+COMMAND: python3 tests/check_static.py
+PASS static assets: 20 references, unique HTML ids, manifest/config, 17 script syntax checks and CSS braces.
+
+STATUS: PASS

@@ -1,0 +1,10 @@
+{
+  "name": "Analysis Power — Basalte-Web",
+  "short_name": "Analysis Power",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#070a0f",
+  "theme_color": "#070a0f",
+  "lang": "fr",
+  "description": "Pilotage commercial clair et actionnable à partir des extractions TGM / Rezomatic."
+}

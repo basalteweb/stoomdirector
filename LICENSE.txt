@@ -1,0 +1,5 @@
+Analysis Power — Copyright (c) 2026 Basalte-Web.
+Tous droits réservés.
+
+Le code de cette application est fourni pour l'usage et le déploiement du propriétaire du projet.
+Les bibliothèques tierces chargées par l'application conservent leurs licences respectives.

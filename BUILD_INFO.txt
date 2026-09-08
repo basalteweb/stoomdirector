@@ -1,0 +1,6 @@
+STOOM Director — Analysis Power
+Version 6.0.0 DIRECTOR
+Prepared 2026-09-06
+Base: Analysis Power 5.1.0 MERCHANT
+Static local-first application. See GUIDE-STOOM.md and TEST_REPORT.txt.
+No remote deployment performed.

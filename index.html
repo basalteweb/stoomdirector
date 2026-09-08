@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#080b10">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://data.geopf.fr; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none';">
+  <meta name="description" content="Analysis Power — pilotage commercial clair et actionnable conçu par Basalte-Web.">
+  <title>STOOM Director — Analysis Power</title>
+  <link rel="stylesheet" href="css/styles.css?v=6.0.0">
+  <link rel="stylesheet" href="css/power.css?v=6.0.0">
+  <link rel="stylesheet" href="css/director.css?v=6.0.0">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Aller au contenu</a>
+  <div id="fatal" class="fatal hidden"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <button id="menuBtn" class="icon-btn mobile-menu" aria-label="Ouvrir le menu" aria-controls="mainNav" aria-expanded="false">☰</button>
+      <div class="brand-mark" aria-hidden="true">S<span>↗</span></div>
+      <div>
+        <strong>STOOM<span class="brand-divider">/</span>DIRECTOR</strong>
+        <span>Analysis Power · Basalte-Web</span>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="dir-global-search"><label for="globalSearch" class="sr-only">Chercher un client ou un produit</label><input id="globalSearch" placeholder="Client, produit, référence…" autocomplete="off"><div id="searchResults" class="hidden"></div></div>
+      <button class="btn" data-open-store><span aria-hidden="true">⌖</span> <span id="storeProfileBadge">Configurer le commerce</span></button>
+      <span id="dataRangeBadge" class="pill muted">Aucune donnée</span>
+      <button id="openImportBtn" class="btn btn-primary">Importer / actualiser</button>
+    </div>
+  </header>
+
+  <div class="app-layout">
+    <aside class="sidebar" aria-label="Navigation principale">
+      <nav id="mainNav">
+        <div class="nav-group-label">PILOTER</div>
+        <button class="nav-item active" data-view="today"><span>◫</span>Ma journée</button>
+        <button class="nav-item" data-view="operations"><span>✓</span>Plan d’action</button>
+        <button class="nav-item" data-view="reorder"><span>▤</span>Préparer le réassort</button>
+        <button class="nav-item" data-view="salesforce"><span>♙</span>Équipe & performance</button>
+        <div class="nav-group-label">COMPRENDRE</div>
+        <button class="nav-item" data-view="dashboard"><span>◈</span>Vue d’ensemble</button>
+        <button class="nav-item" data-view="clients"><span>◎</span>Clients</button>
+        <button class="nav-item" data-view="products"><span>◇</span>Produits</button>
+        <button class="nav-item" data-view="rayons"><span>▦</span>Rayons</button>
+        <button class="nav-item" data-view="stock"><span>▣</span>Stock détaillé</button>
+        <button class="nav-item" data-view="fidelity"><span>↻</span>Fidélisation</button>
+        <button class="nav-item" data-view="intelligence"><span>✦</span>Diagnostic</button>
+        <button class="nav-item" data-view="alerts"><span>!</span>Opportunités</button>
+        <button class="nav-item" data-view="context"><span>⛓</span>Pourquoi ça bouge ?</button>
+        <button class="nav-item" data-view="geo"><span>⌖</span>Autour du commerce</button>
+        <button class="nav-item" data-view="calendar"><span>◷</span>Saisonnalité</button>
+        <button class="nav-item" data-view="associations"><span>⌘</span>Achats associés</button>
+        <button class="nav-item" data-view="compare"><span>⇄</span>Comparateur libre</button>
+        <div class="nav-group-label">MAÎTRISER LES DONNÉES</div>
+        <button class="nav-item" data-view="autopilot"><span>⚡</span>Contrôles</button>
+        <button class="nav-item" data-view="quality"><span>≡</span>Détails & audit</button>
+        <button class="nav-item" data-view="settings"><span>⚙</span>Réglages & mémoire</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="privacy-note"><strong>Mode local</strong><br>Les données importées restent dans ce navigateur.</div>
+        <button id="backupBtn" class="btn btn-small">Exporter une sauvegarde</button>
+        <button id="restoreBtn" class="btn btn-small btn-ghost">Restaurer une sauvegarde</button>
+        <input id="restoreFile" type="file" accept=".json" class="hidden">
+        <button id="clearDataBtn" class="btn btn-ghost btn-small">Effacer les données locales</button>
+        <small>Analysis Power <span id="versionLabel"></span></small>
+      </div>
+    </aside>
+
+    <main id="mainContent" class="main-content" tabindex="-1">
+      <section class="empty-state power-empty" id="emptyState">
+        <div class="dir-welcome-label"><span>STOOM</span> DIRECTOR / 06</div>
+        <h1>Le magasin.<br><em>Sous contrôle.</em></h1>
+        <p>Ventes, clients, stocks, équipe : une mémoire commune pour décider chaque jour.</p>
+        <div class="dir-welcome-grid"><article><span>01</span><h2>Construire la mémoire</h2><p>Importer Clients, Ventes et Catalogue. Chaque nouvel export de ventes complète l’historique.</p></article><article><span>02</span><h2>Voir ce qui compte</h2><p>Suivre les objectifs, les produits à sécuriser et les habitudes des clients.</p></article><article><span>03</span><h2>Passer à l’action</h2><p>Préparer les commandes et piloter l’équipe avec des chiffres traçables.</p></article></div>
+        <div class="dir-welcome-actions"><button class="btn btn-primary btn-large" id="emptyImportBtn">Importer les données Stoom <span aria-hidden="true">↗</span></button><button class="btn btn-large" data-open-store>Profil du magasin</button></div>
+        <p class="small-muted">Clients.xlsx · Ventes.csv · Catalogue.xlsx — données traitées sur cet appareil.</p>
+      </section>
+      <div id="viewRoot" class="hidden"></div>
+    </main>
+  </div>
+
+  <div id="importModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="importTitle">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card import-modal-card">
+      <div class="modal-header">
+        <div>
+          <span class="eyebrow">IMPORT TGM SÉCURISÉ</span>
+          <h2 id="importTitle" tabindex="-1">Actualiser la mémoire du magasin</h2>
+          <p>Les nouvelles ventes complètent l’historique. Les mises à jour sont vérifiées avant d’être appliquées.</p>
+        </div>
+        <button class="icon-btn" data-close-modal aria-label="Fermer">×</button>
+      </div>
+
+      <div class="import-grid">
+        <article class="import-card" data-import-card="clients">
+          <div class="import-step">1</div>
+          <h3>Base clients</h3>
+          <p>Fichier <strong>clients</strong>, avec ou sans suffixe numérique entre parenthèses.</p>
+          <label class="dir-date-label" for="clientsObserved">Date de l’export clients (avant sélection)</label><input id="clientsObserved" class="date-input" type="date" required>
+          <label class="file-button">Sélectionner Clients.xlsx<input id="clientsFile" type="file" accept=".xlsx"></label>
+          <div class="progress"><i id="clientsProgress"></i></div>
+          <div id="clientsStatus" class="import-status neutral">En attente</div>
+        </article>
+
+        <article class="import-card" data-import-card="ventes">
+          <div class="import-step">2</div>
+          <h3>Ventes</h3>
+          <p>Ajouter un jour, un mois ou plusieurs exports <strong>ventes.csv</strong>. L’historique reste présent et les tickets déjà connus ne sont pas comptés deux fois.</p>
+          <label class="file-button">Sélectionner Ventes.csv<input id="ventesFile" type="file" accept=".csv" multiple></label>
+          <div class="progress"><i id="ventesProgress"></i></div>
+          <div id="ventesStatus" class="import-status neutral">En attente</div>
+        </article>
+
+        <article class="import-card" data-import-card="catalogue">
+          <div class="import-step">3</div>
+          <h3>Catalogue / stock</h3>
+          <p>Fichier <strong>catalogue</strong>, avec ou sans suffixe numérique entre parenthèses.</p>
+          <label class="dir-date-label" for="catalogueObserved">Date réelle du stock (avant sélection)</label><input id="catalogueObserved" class="date-input" type="date" required>
+          <label class="file-button">Sélectionner Catalogue.xlsx<input id="catalogueFile" type="file" accept=".xlsx"></label>
+          <div class="progress"><i id="catalogueProgress"></i></div>
+          <div id="catalogueStatus" class="import-status neutral">En attente</div>
+        </article>
+      </div>
+
+      <div id="crossStatus" class="cross-status">
+        <div class="cross-icon">⧉</div>
+        <div><strong>En attente des fichiers</strong><p>Ajoute Clients, Ventes et Catalogue. Power vérifiera ensuite que tout correspond correctement.</p></div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="privacy-inline">🔒 Traitement local : aucune ligne client n’est envoyée à Basalte-Web, GitHub ou un serveur d’analyse.</div>
+        <button id="discardImportBtn" class="btn">Annuler les fichiers en attente</button>
+        <button id="runAnalysisBtn" class="btn btn-primary btn-large" disabled>Valider et mettre à jour</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="storeModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="storeTitle">
+    <div class="modal-backdrop" data-close-store></div>
+    <div class="modal-card store-modal-card">
+      <div class="modal-header">
+        <div><span class="eyebrow">CONTEXTE AUTOUR DU COMMERCE</span><h2 id="storeTitle">Profil du point de vente</h2><p>Renseigner le magasin pour rapprocher les informations publiques disponibles de sa localisation. La collecte du contexte dépend de sa dernière actualisation.</p></div>
+        <button class="icon-btn" data-close-store aria-label="Fermer">×</button>
+      </div>
+      <div class="store-grid">
+        <div class="store-field"><label for="storeName">Nom du point de vente</label><input id="storeName" autocomplete="organization" placeholder="Mon commerce"></div>
+        <div class="store-field full"><label for="storeAddress">Adresse complète</label><input id="storeAddress" autocomplete="street-address" placeholder="109 avenue Edouard Michelin, 63100 Clermont-Ferrand"></div>
+        <div class="store-field"><label for="radiusImmediate">Rayon immédiat (m)</label><input id="radiusImmediate" type="number" min="25" step="25" value="100"></div>
+        <div class="store-field"><label for="radiusCommercial">Zone commerciale (m)</label><input id="radiusCommercial" type="number" min="100" step="50" value="500"></div>
+        <div class="store-field"><label for="radiusExtended">Zone étendue (m)</label><input id="radiusExtended" type="number" min="250" step="100" value="2000"></div>
+      </div>
+      <div id="storeGeoStatus" class="store-geo-status">Adresse à géocoder</div>
+      <div class="modal-footer"><div class="privacy-inline">L’adresse du commerce est géocodée via le service public Géoplateforme/BAN et sauvegardée localement dans ce navigateur.</div><button id="saveStoreBtn" class="btn btn-primary">Enregistrer et vérifier autour du magasin</button></div>
+    </div>
+  </div>
+
+  <div id="detailModal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-close-detail></div>
+    <div class="modal-card detail-card">
+      <button class="icon-btn detail-close" data-close-detail aria-label="Fermer">×</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <div id="toastRoot" class="toast-root" role="status" aria-live="polite"></div>
+
+  <script src="js/constants.js?v=6.0.0"></script>
+  <script src="js/utils.js?v=6.0.0"></script>
+  <script src="js/csv.js?v=6.0.0"></script>
+  <script src="js/xlsx-lite.js?v=6.0.0"></script>
+  <script src="js/importer.js?v=6.0.0"></script>
+  <script src="js/storage.js?v=6.0.0"></script>
+  <script src="js/geo.js?v=6.0.0"></script>
+  <script src="js/intelligence.js?v=6.0.0"></script>
+  <script src="js/autopilot.js?v=6.0.0"></script>
+  <script src="js/analytics.js?v=6.0.0"></script>
+  <script src="js/public-context.js?v=6.0.0"></script>
+  <script src="js/causal-context.js?v=6.0.0"></script>
+  <script src="js/power.js?v=6.0.0"></script>
+  <script src="js/director.js?v=6.0.0"></script>
+  <script src="js/ui.js?v=6.0.0"></script>
+  <script src="js/app.js?v=6.0.0"></script>
+</body>
+</html>
