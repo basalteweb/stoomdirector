@@ -1,0 +1,14 @@
+# Ne jamais versionner les extractions TGM ni les données clients
+*.csv
+*.xlsx
+*.xls
+*.ods
+*.zip
+.DS_Store
+Thumbs.db
+
+__pycache__/
+*.pyc
+
+# Sauvegardes privées Director
+STOOM-Sauvegarde-*.json
